@@ -68,9 +68,8 @@
                         {% if un_producto.stock < 1 %} <h5>Ups, no tenemos stock de este producto 😅</h5>
                             {% else %}
                             <a href="{% url 'add_cart' un_producto.id %}" class="btn  btn-primary"> <span
-                                    class="text">Agregar al
-                                    carrito
-                                    cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                                    class="text">Agregar al carrito
+                                </span> <i class="fas fa-shopping-cart"></i> </a>
                             {% endif %}
 
                     </article> <!-- product-info-aside .// -->
