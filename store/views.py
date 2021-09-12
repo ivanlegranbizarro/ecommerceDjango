@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Producto
 from categoria.models import Categoria
+from cart.models import CartItem
+from cart.views import _cart_id
 
 # Create your views here.
 
@@ -28,8 +30,10 @@ def detalle_producto(request, slug_categoria, slug_producto):
     try:
         un_producto = Producto.objects.get(
             categoria__slug=slug_categoria, slug_producto=slug_producto)
+        en_carrito = CartItem.objects.filter(
+            cart__cart_id=_cart_id(request), producto=un_producto).exists()
     except Exception as e:
         raise e
 
-    context = {'un_producto': un_producto,}
+    context = {'un_producto': un_producto, 'en_carrito': en_carrito}
     return render(request, 'store/producto_detalle.html', context)
