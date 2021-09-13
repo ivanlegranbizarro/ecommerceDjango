@@ -17,13 +17,14 @@ def store(request, slug_categoria=None):
     if slug_categoria != None:
         categorias = get_object_or_404(Categoria, slug=slug_categoria)
         productos = Producto.objects.filter(
-            categoria=categorias, is_available=True)
+            categoria=categorias, is_available=True).order_by('-created_date')
         paginator = Paginator(productos, 3)
         page = request.GET.get('page')
         page_products = paginator.get_page(page)
         productos_contados = productos.count()
     else:
-        productos = Producto.objects.all().filter(is_available=True)
+        productos = Producto.objects.all().filter(
+            is_available=True).order_by('-created_date')
         paginator = Paginator(productos, 6)
         page = request.GET.get('page')
         page_products = paginator.get_page(page)

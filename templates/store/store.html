@@ -127,6 +127,7 @@
                 </header><!-- sect-heading -->
 
                 <div class="row">
+                    {% if productos %}
 
                     {% for producto in productos %}
                     <div class="col-md-4">
@@ -148,6 +149,10 @@
                         </figure>
                     </div> <!-- col.// -->
                     {% endfor %}
+                    {% else %}
+                    <div><h2>No tenemos ese producto 😭</h2></div>
+                    {% endif %}
+
                 </div> <!-- row end.// -->
 
                 <nav class="mt-4" aria-label="Page navigation sample">
