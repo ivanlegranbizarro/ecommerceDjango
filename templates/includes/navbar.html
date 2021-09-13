@@ -3,7 +3,7 @@
     <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                                                                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTop4">
@@ -47,10 +47,9 @@
                 </div> <!-- col.// -->
                 <a href="{% url 'store' %}" class="btn btn-outline-primary">Tienda</a>
                 <div class="col-lg  col-md-6 col-sm-12 col">
-                    <form action="#" class="search">
+                    <form action="{% url 'buscar' %}" class="search">
                         <div class="input-group w-100">
-                            <input type="text" class="form-control" style="width:60%;" placeholder="Search">
-
+                            <input type="text" class="form-control" style="width:60%;" placeholder="Buscar productos" name="keyword">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="fa fa-search"></i>
