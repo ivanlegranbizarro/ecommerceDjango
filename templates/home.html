@@ -22,14 +22,13 @@
             <a href="{% url 'store' %}" class="btn btn-outline-primary float-right">Ver Todo</a>
             <h3 class="section-title">Productos populares</h3>
         </header><!-- sect-heading -->
-
         <div class="row">
 
             {% for producto in productos %}
             <div class="col-md-3">
                 <div class="card card-product-grid">
                     <a href="{{producto.get_url}}" l.html" class="img-wrap"> <img
-                            src="{{producto.imagen_producto.url}}">
+                                                                           src="{{producto.imagen_producto.url}}">
                     </a>
                     <figcaption class="info-wrap">
                         <a href="{{producto.get_url}}" class="title">{{producto.nombre_producto}}</a>
