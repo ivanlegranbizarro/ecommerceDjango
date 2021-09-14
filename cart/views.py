@@ -40,7 +40,7 @@ def add_cart(request, producto_id):
         cart_item = CartItem.objects.get(producto=producto, cart=cart)
         if len(variaciones_producto) > 0:
             cart_item.variaciones.clear()
-            for item in variantaciones_producto:
+            for item in variaciones_producto:
                 cart_item.variaciones.add(item)
 
         cart_item.quantity += 1

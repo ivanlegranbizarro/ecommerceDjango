@@ -17,7 +17,8 @@
                     </article> <!-- gallery-wrap .end// -->
                 </aside>
                 <main class="col-md-6 border-left">
-                    <form action="{% url 'add_cart' un_producto.id %}" method="GET">
+                    <form action="{% url 'add_cart' un_producto.id %}" method="POST">
+                        {% csrf_token %}
                         <article class="content-body">
                             <h2 class="title">{{un_producto.nombre_producto}}</h2>
 
@@ -30,8 +31,9 @@
                                 <div class="item-option-select">
                                     <h6>Escoge un color</h6>
                                     <select name="color" class="form-control" required>
+                                        <option value="" disabled selected>Seleccione</option>
                                         {% for variacion in un_producto.variation_set.colores %}
-                                        <option value="{{variacion.variation.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
+                                        <option value="{{variacion.valores_variacion.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -40,8 +42,9 @@
                                 <div class="item-option-select">
                                     <h6>Escoge una talla</h6>
                                     <select name="talla" class="form-control" required>
+                                        <option value="" disabled selected>Seleccione</option>
                                         {% for variacion in un_producto.variation_set.tallas %}
-                                        <option value="{{variacion.variation.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
+                                        <option value="{{variacion.valores_variacion.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
