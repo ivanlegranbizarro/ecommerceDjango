@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from store.models import Producto
+from store.models import Producto, Variation
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -15,6 +15,21 @@ def _cart_id(request):
 
 def add_cart(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
+    variaciones_producto = []
+
+    if request.method == 'POST':
+        for item in request.POST:
+            key = item
+            value = request.POST[key]
+
+            try:
+                variaciones = Variation.objects.get(
+                    producto=producto, categoria_variacion__iexact=key,
+                    valores_variacion__iexact=value)
+                variaciones_producto.append(variaciones)
+            except:
+                pass
+
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
     except Cart.DoesNotExist:
@@ -23,11 +38,20 @@ def add_cart(request, producto_id):
 
     try:
         cart_item = CartItem.objects.get(producto=producto, cart=cart)
+        if len(variaciones_producto) > 0:
+            cart_item.variaciones.clear()
+            for item in variantaciones_producto:
+                cart_item.variaciones.add(item)
+
         cart_item.quantity += 1
         cart_item.save()
+
     except CartItem.DoesNotExist:
         cart_item = CartItem.objects.create(
             producto=producto, quantity=1, cart=cart,)
+
+        if len(variaciones_producto) > 0:
+            cart_item.variaciones.add(item)
         cart_item.save()
 
     return redirect('cart')
@@ -58,6 +82,10 @@ def remove_cart_item(request, producto_id):
 
 
 def cart(request, total=0, quantity=0, cart_items=None):
+
+    tax = 0
+    grand_total = 0
+
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart, is_active=True)

@@ -29,23 +29,20 @@
                             <div class="row">
                                 <div class="item-option-select">
                                     <h6>Escoge un color</h6>
-                                    <select name="color" class="form-control">
-                                        <option value="rojo">Rojo</option>
-                                        <option value="azul">Azul</option>
-                                        <option value='verde'>Verde</option>
+                                    <select name="color" class="form-control" required>
+                                        {% for variacion in un_producto.variation_set.colores %}
+                                        <option value="{{variacion.variation.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div> <!-- row.// -->
                             <div class="row">
                                 <div class="item-option-select">
-                                    <h6>Selecciona una talla</h6>
-                                    <select name="talla">
-                                        <option value="s">S</option>
-                                        <option value="m">M</option>
-                                        <option value="x">X</option>
-                                        <option value="2x">2X</option>
-                                        <option value="3x">3x</option>
-                                        <option value="4x">4x</option>
+                                    <h6>Escoge una talla</h6>
+                                    <select name="talla" class="form-control" required>
+                                        {% for variacion in un_producto.variation_set.tallas %}
+                                        <option value="{{variacion.variation.value | lower}}">{{variacion.valores_variacion | capfirst}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div> <!-- row.// -->
